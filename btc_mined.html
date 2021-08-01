@@ -1,0 +1,24 @@
+
+<h1>How many BTC was mined?</h1>
+
+<script>
+  const totalSupply = 21_000_000;
+  const blocksBetweenHalving = 210_000;
+  const initialPerBlock = 50;
+
+  const countMinedBTC = lastBlock => {
+    const halvings = Math.floor(lastBlock / blocksBetweenHalving);
+    const blocksInCycle = lastBlock % blocksBetweenHalving;
+    const currentReward = 0.5 ** halvings * initialPerBlock;
+
+    const halvingRevards = (1 - 0.5 ** halvings) * totalSupply;
+    const minedBTC = halvingRevards + currentReward * blocksInCycle;
+    const minedPercent = minedBTC / totalSupply;
+
+    return { minedBTC, minedPercent };
+  };
+
+  console.log(countMinedBTC(693730));
+</script>
+
+
